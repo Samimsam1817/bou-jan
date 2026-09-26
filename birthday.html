@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>I Love You Bou Jan ❤️</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at center,#55182e,#180812 55%,#050509);
+    color:white;
+    font-family:'Noto Serif Bengali',serif;
+}
+
+/* ================= DOOR ================= */
+
+#doorScreen{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:#09070a;
+    overflow:hidden;
+}
+
+.door{
+    position:absolute;
+    top:0;
+    width:50%;
+    height:100%;
+
+    background:
+        linear-gradient(90deg,#16070d,#542033,#1c0710);
+
+    border:2px solid rgba(255,200,215,.2);
+
+    transition:transform 2.2s cubic-bezier(.77,0,.18,1);
+}
+
+.leftDoor{
+    left:0;
+}
+
+.rightDoor{
+    right:0;
+}
+
+.door::after{
+    content:"";
+    position:absolute;
+    inset:8%;
+    border:1px solid rgba(255,220,230,.18);
+}
+
+.handle{
+    position:absolute;
+    top:50%;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#e7bd7e;
+    box-shadow:0 0 15px #e7bd7e;
+}
+
+.leftDoor .handle{
+    right:25px;
+}
+
+.rightDoor .handle{
+    left:25px;
+}
+
+/* Door center text */
+
+.doorContent{
+    position:absolute;
+    z-index:110;
+    width:100%;
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    transition:opacity .8s;
+}
+
+.doorHeart{
+    font-size:65px;
+    animation:beat 1.4s infinite;
+}
+
+@keyframes beat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.15)}
+}
+
+.doorTitle{
+    font-family:'Cormorant Garamond',serif;
+    font-size:60px;
+    color:#ffdce5;
+}
+
+.doorSub{
+    color:#eebdcc;
+    margin-top:5px;
+}
+
+.openBtn{
+    margin-top:25px;
+    padding:14px 30px;
+
+    border-radius:50px;
+    border:1px solid rgba(255,210,220,.4);
+
+    background:rgba(255,255,255,.08);
+    color:white;
+
+    cursor:pointer;
+    font-size:16px;
+
+    transition:.3s;
+}
+
+.openBtn:hover{
+    transform:scale(1.06);
+    background:rgba(255,80,130,.2);
+}
+
+/* Door opens */
+
+#doorScreen.opened .leftDoor{
+    transform:translateX(-100%);
+}
+
+#doorScreen.opened .rightDoor{
+    transform:translateX(100%);
+}
+
+#doorScreen.opened .doorContent{
+    opacity:0;
+}
+
+/* IMPORTANT FIX */
+
+#doorScreen.hide{
+    pointer-events:none;
+    visibility:hidden;
+}
+
+
+/* ================= MAIN ================= */
+
+#main{
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    opacity:0;
+    transition:opacity 1.5s;
+}
+
+#main.show{
+    opacity:1;
+}
+
+.card{
+    width:min(850px,95vw);
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,200,215,.25);
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:0 20px 70px rgba(0,0,0,.6);
+}
+
+
+/* ================= CAPTION ================= */
+
+#caption{
+    min-height:75px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:clamp(21px,4vw,34px);
+
+    color:#ffe1e9;
+
+    text-shadow:0 0 20px rgba(255,80,130,.4);
+}
+
+.word{
+    display:inline-block;
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+    filter:blur(5px);
+
+    margin-right:7px;
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease,
+        filter 1s ease;
+}
+
+.word.show{
+    opacity:1;
+    transform:translateY(0);
+    filter:blur(0);
+}
+
+
+/* ================= PHOTO ================= */
+
+.photo{
+    width:min(300px,75vw);
+
+    margin:15px auto;
+
+    padding:7px;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd4df,
+            #a44d67,
+            #f3c68d,
+            #7b3048
+        );
+
+    box-shadow:
+        0 0 35px rgba(255,80,130,.3);
+
+    opacity:0;
+
+    transform:scale(.8);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+}
+
+.photo.show{
+    opacity:1;
+    transform:scale(1);
+}
+
+.photo img{
+    display:block;
+    width:100%;
+
+    border-radius:16px;
+
+    border:2px solid rgba(255,255,255,.3);
+}
+
+
+/* ================= FINAL ================= */
+
+#final{
+    margin-top:15px;
+
+    opacity:0;
+    transform:translateY(15px);
+
+    transition:1.5s;
+}
+
+#final.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.finalTitle{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(38px,7vw,70px);
+
+    font-weight:600;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffd4df,
+            #ff709d,
+            #ffd39c,
+            #ff8aad
+        );
+
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.finalText{
+    color:#f4ccd8;
+    font-size:17px;
+}
+
+
+/* ================= FLOATING HEART ================= */
+
+.heart{
+    position:fixed;
+    bottom:-50px;
+
+    z-index:5;
+
+    pointer-events:none;
+
+    animation:floatHeart linear forwards;
+}
+
+@keyframes floatHeart{
+
+    0%{
+        opacity:0;
+        transform:translateY(0) scale(.5);
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        transform:
+            translateY(-110vh)
+            scale(1.2)
+            rotate(25deg);
+    }
+}
+
+
+/* ================= PETALS ================= */
+
+.petal{
+    position:fixed;
+    top:-40px;
+
+    z-index:5;
+
+    pointer-events:none;
+
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+
+    0%{
+        transform:translateY(-30px) rotate(0);
+    }
+
+    100%{
+        transform:
+            translateY(110vh)
+            translateX(100px)
+            rotate(360deg);
+    }
+}
+
+
+/* ================= MUSIC BUTTON ================= */
+
+.musicBtn{
+    position:fixed;
+
+    right:18px;
+    bottom:18px;
+
+    z-index:20;
+
+    padding:10px 17px;
+
+    border-radius:50px;
+
+    border:1px solid rgba(255,200,215,.3);
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    cursor:pointer;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .doorTitle{
+        font-size:43px;
+    }
+
+    .doorHeart{
+        font-size:55px;
+    }
+
+    .card{
+        padding:25px 15px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= DOOR ================= -->
+
+<div id="doorScreen">
+
+    <div class="door leftDoor">
+        <div class="handle"></div>
+    </div>
+
+    <div class="door rightDoor">
+        <div class="handle"></div>
+    </div>
+
+
+    <div class="doorContent">
+
+        <div class="doorHeart">
+            ❤️
+        </div>
+
+        <div class="doorTitle">
+            For My Bou Jan
+        </div>
+
+        <div class="doorSub">
+            তোমার জন্য একটা ছোট্ট surprise... 🌹
+        </div>
+
+        <button class="openBtn" id="openBtn">
+            Open the Door ❤️
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<div id="main">
+
+    <div class="card">
+
+        <div id="caption"></div>
+
+
+        <div class="photo" id="photo">
+
+            <img src="./boujan.jpg" alt="Bou Jan">
+
+        </div>
+
+
+        <div id="final">
+
+            <div class="finalTitle">
+                I Love You Bou Jan ❤️
+            </div>
+
+            <div class="finalText">
+                তুমি আমার সবচেয়ে প্রিয় মানুষ। 🌹
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= MUSIC ================= -->
+
+<audio id="music" loop>
+    <source src="./song.mp3" type="audio/mpeg">
+</audio>
+
+
+<button class="musicBtn" id="musicBtn">
+    🎵 Song
+</button>
+
+
+<script>
+
+/* ================= ELEMENTS ================= */
+
+const doorScreen =
+    document.getElementById("doorScreen");
+
+const openBtn =
+    document.getElementById("openBtn");
+
+const main =
+    document.getElementById("main");
+
+const music =
+    document.getElementById("music");
+
+const caption =
+    document.getElementById("caption");
+
+const photo =
+    document.getElementById("photo");
+
+const final =
+    document.getElementById("final");
+
+const musicBtn =
+    document.getElementById("musicBtn");
+
+
+/* ================= CAPTIONS ================= */
+
+const captions = [
+
+    "তোমাকে পাওয়ার পর... ❤️",
+
+    "ভালোবাসার মানেটা বুঝেছি... 💕",
+
+    "তুমি শুধু আমার ভালোবাসা নও... 💖",
+
+    "তুমি আমার শান্তি... 🌹",
+
+    "আমার সবচেয়ে প্রিয় মানুষ... 🥰",
+
+    "হাজার মানুষের ভিড়েও... ✨",
+
+    "আমার চোখ শুধু তোমাকেই খুঁজবে... 💘",
+
+    "আর একটা কথা... 🥺",
+
+    "আমি তোমাকে অনেক ভালোবাসি... ❤️‍🔥"
+
+];
+
+
+/* ================= WORD BY WORD ================= */
+
+function showCaption(text){
+
+    caption.innerHTML = "";
+
+    const words =
+        text.split(" ");
+
+    words.forEach((word,index)=>{
+
+        const span =
+            document.createElement("span");
+
+        span.className = "word";
+
+        span.textContent = word;
+
+        caption.appendChild(span);
+
+        setTimeout(()=>{
+
+            span.classList.add("show");
+
+        },index * 350);
+
+    });
+
+}
+
+
+/* ================= OPEN ================= */
+
+openBtn.addEventListener("click",()=>{
+
+    /* Main immediately appears */
+
+    main.classList.add("show");
+
+
+    /* Music starts immediately */
+
+    music.volume = 0.75;
+
+    music.play().catch(()=>{
+
+        console.log("Music autoplay blocked.");
+
+    });
+
+
+    /* Door opens */
+
+    doorScreen.classList.add("opened");
+
+
+    /* First caption */
+
+    setTimeout(()=>{
+
+        showCaption(captions[0]);
+
+    },500);
+
+
+    /*
+       Every caption changes
+       after 4 seconds
+    */
+
+    captions.forEach((text,index)=>{
+
+        setTimeout(()=>{
+
+            showCaption(text);
+
+        },4000 * index);
+
+    });
+
+
+    /* Photo appears */
+
+    setTimeout(()=>{
+
+        photo.classList.add("show");
+
+    },9000);
+
+
+    /* Final love text */
+
+    setTimeout(()=>{
+
+        final.classList.add("show");
+
+    },11000);
+
+
+    /* Completely remove door */
+
+    setTimeout(()=>{
+
+        doorScreen.classList.add("hide");
+
+    },2500);
+
+});
+
+
+/* ================= HEARTS ================= */
+
+const hearts = [
+    "❤️",
+    "💖",
+    "💕",
+    "💗",
+    "💓",
+    "💘",
+    "💝",
+    "💞"
+];
+
+function createHeart(){
+
+    const heart =
+        document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.innerHTML =
+        hearts[
+            Math.floor(
+                Math.random()*hearts.length
+            )
+        ];
+
+    heart.style.left =
+        Math.random()*100 + "%";
+
+    heart.style.fontSize =
+        (14 + Math.random()*22) + "px";
+
+    heart.style.animationDuration =
+        (6 + Math.random()*6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },13000);
+
+}
+
+setInterval(createHeart,700);
+
+
+/* ================= PETALS ================= */
+
+function createPetal(){
+
+    const petal =
+        document.createElement("div");
+
+    petal.className = "petal";
+
+    petal.innerHTML =
+        ["🌹","🌸","🌷"][
+            Math.floor(Math.random()*3)
+        ];
+
+    petal.style.left =
+        Math.random()*100 + "%";
+
+    petal.style.fontSize =
+        (12 + Math.random()*15) + "px";
+
+    petal.style.animationDuration =
+        (6 + Math.random()*6) + "s";
+
+    document.body.appendChild(petal);
+
+    setTimeout(()=>{
+        petal.remove();
+    },14000);
+
+}
+
+setInterval(createPetal,1100);
+
+
+/* ================= MUSIC BUTTON ================= */
+
+musicBtn.addEventListener("click",()=>{
+
+    if(music.paused){
+
+        music.play();
+
+        musicBtn.innerHTML =
+            "🎵 Playing";
+
+    }else{
+
+        music.pause();
+
+        musicBtn.innerHTML =
+            "▶️ Play Song";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
